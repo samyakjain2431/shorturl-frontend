@@ -1,38 +1,74 @@
-.App {
-  text-align: center;
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+*{
+    font-family: 'Space Grotesk', sans-serif;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+:root{
+    --gap : 1.2rem;
+    --color-black-50 : #00000050;
+    --text-size-1 : 1.8rem;
+    --text-size-2 : 1.3rem;
+    --text-bold : 800;
+    --button-color-primary : #0000004d;
+    --button-color-primary-hover : #0000008a;
 }
+.sub_menu{
+    display : grid;
+    grid-template-rows : 0fr;
+    transition : 200ms ease-in-out;s
+        > div{
+            overflow : hidden;
+        }   
+    }
+.sub_menu.show{
+    grid-template-rows : 1fr;
+    }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.my-bg-primary{
+    background-color : #ffffff;
 }
-
-.App-link {
-  color: #61dafb;
+.my-bg-secondary{
+    background-color : white;
 }
+.my-bg-secondary:hover{
+    background-color : #e4e4e4
+}
+.my-button-primary{
+    background: var(--button-color-primary);
+}
+.my-button-primary:hover{
+    background: var(--button-color-primary-hover);
+}
+.border-primary{
+    border-color : #0000004b;
+}
+.border-secondary{
+    border-color : #00000081;
+}
+.hr-color{
+    border-color : #0000002c;
+}
+.hr-secondary{
+    margin: var(--gap) auto;
+    color : var(--color-black-50)
+}
+.disabled{
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    opacity : 0.3;
+}
+h2{
+    font-size: var(--text-size-2);
+    margin-bottom: 3px;
+}
+h1{
+    font-size: var(--text-size-1);
+    font-weight: var(--text-bold);
+
 }
