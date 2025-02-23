@@ -1,29 +1,27 @@
-import { createContext, useState, useEffect, useCallback } from "react";
+import { createContext, useState, useEffect } from "react";
 import { getUser, logoutUser, registerUser, loginUser } from "../services/api";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);  // ✅ Prevent flickering
-
-    // ✅ Higher-level function to get the user
-    const handleGetUser = useCallback( async () => {
-        try {
-            const data = await getUser();
-            console.log("frontend-getUser-context.js\n",data);
-            setUser(data);
-            console.log("New user is \n",user);
-        } catch (error) {
-            setUser(null);
-        } finally {
-            setLoading(false); // ✅ Stop loading once user check is done
-        }
-    }, []);
+    const [loading, setLoading] = useState(true); // ✅ Prevents flickering
 
     useEffect(() => {
-        handleGetUser(); // ✅ Call on app load
-    }, [handleGetUser]);
+        const handleGetUser = async () => {
+            try {
+                const data = await getUser();
+                console.log("frontend-getUser-context.js\n", data);
+                setUser(data);
+            } catch (error) {
+                setUser(null);
+            } finally {
+                setLoading(false); // ✅ Stops loading once user check is done
+            }
+        };
+
+        handleGetUser(); // ✅ Fetch user on app load
+    }, []); // ✅ Runs only once, no infinite loop
 
     const handleRegister = async (userData) => {
         try {
@@ -36,7 +34,7 @@ export const AuthProvider = ({ children }) => {
     const handleLogin = async (userData) => {
         try {
             const response = await loginUser(userData);
-            setUser(response);  // ✅ Update user state after login
+            setUser(response); // ✅ Update user state after login
         } catch (error) {
             console.error("Login Error:", error);
         }
@@ -45,7 +43,6 @@ export const AuthProvider = ({ children }) => {
     const handleLogout = async () => {
         await logoutUser();
         setUser(null);
-        
     };
 
     // ✅ Show loading state before checking authentication
