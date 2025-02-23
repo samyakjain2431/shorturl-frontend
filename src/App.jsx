@@ -35,7 +35,7 @@ function AppContent({ loadingBarRef }) {
         loadingBarRef.current.complete();
       }, 50); // Simulate a slight delay for UX
     }
-  }, [location]);
+  }, [loadingBarRef, location]);
 
   return (
     <div className={showNavbar ? "grid grid-cols-[auto_1fr] bg-primary " : "App--no-navbar"}>

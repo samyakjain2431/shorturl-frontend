@@ -7,10 +7,10 @@ function NewUrl() {
     setUrl(event.target.value);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log('New URL:', url);
-  };
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   console.log('New URL:', url);
+  // };
 
   return (
     <div className='min-h-full p-10'>
