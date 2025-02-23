@@ -7,12 +7,13 @@ function Navbar() {
 
     const { handleLogout } = useContext(AuthContext);
     const navigate = useNavigate();
-    const toggleButton = (button) =>{
-        button.nextElementSibling.classList.toggle('show');
-    }
+    // const toggleButton = (button) =>{
+    //     button.nextElementSibling.classList.toggle('show');
+    // }
     const logOutUser = () =>{ 
         handleLogout();
         navigate("/login");
+        window.location.reload();
     }
 
     const styles =`
@@ -63,7 +64,7 @@ function Navbar() {
             </div>
            </div>
             <div className="account_section">
-                <p className='px-3 py-2 bg-red-100 hover:bg-red-200 text-red-600 duration-200 rounded-lg ' onClick={logOutUser}  >💁 Log out</p>
+                <button className='px-3 w-full text-left py-2 bg-red-100 hover:bg-red-200 text-red-600 duration-200 rounded-lg ' onClick={logOutUser}  >💁 Log out</button>
             </div>
 
         </nav>
