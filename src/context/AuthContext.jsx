@@ -5,47 +5,53 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true); // ✅ Prevents flickering
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const handleGetUser = async () => {
+        const fetchUser = async () => {
             try {
                 const data = await getUser();
-                console.log("frontend-getUser-context.js\n", data);
                 setUser(data);
             } catch (error) {
                 setUser(null);
             } finally {
-                setLoading(false); // ✅ Stops loading once user check is done
+                setLoading(false);
             }
         };
 
-        handleGetUser(); // ✅ Fetch user on app load
-    }, []); // ✅ Runs only once, no infinite loop
+        fetchUser();
+    }, []);
 
     const handleRegister = async (userData) => {
         try {
             await registerUser(userData);
+            return { success: true };
         } catch (error) {
             console.error("Registration Error:", error);
+            return { success: false, message: error.response?.data?.message || "Registration failed" };
         }
     };
 
     const handleLogin = async (userData) => {
         try {
             const response = await loginUser(userData);
-            setUser(response); // ✅ Update user state after login
+            setUser(response);
+            return { success: true };
         } catch (error) {
             console.error("Login Error:", error);
+            return { success: false, message: error.response?.data?.message || "Login failed" };
         }
     };
 
     const handleLogout = async () => {
-        await logoutUser();
-        setUser(null);
+        try {
+            await logoutUser();
+            setUser(null);
+        } catch (error) {
+            console.error("Logout Error:", error);
+        }
     };
 
-    // ✅ Show loading state before checking authentication
     if (loading) return <p>Loading...</p>;
 
     return (
